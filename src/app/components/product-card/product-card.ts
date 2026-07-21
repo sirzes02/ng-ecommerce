@@ -1,21 +1,20 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Product } from '../../models/product';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { EcommerceStore } from '../../ecommerce-store';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [MatButton, MatIcon],
+  imports: [MatButton, MatIcon, CurrencyPipe],
   templateUrl: './product-card.html',
   styles: ``,
 })
 export class ProductCard {
-  product = input.required<Product>();
-  addToCartClicked = output<Product>();
+  readonly store = inject(EcommerceStore);
 
-  get priceDisplay(): string {
-    return this.product().price.toFixed(2);
-  }
+  product = input.required<Product>();
 
   get inStockDisplay(): string {
     return this.product().inStock ? 'In Stock' : 'Out of Stock';
