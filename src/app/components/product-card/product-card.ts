@@ -17,5 +17,7 @@ export class ProductCard {
     return this.product().price.toFixed(2);
   }
 
-  addToCart(): void {}
+  get inStockDisplay(): string {
+    return this.product().inStock ? 'In Stock' : 'Out of Stock';
+  }
 }
