@@ -3,13 +3,13 @@ import { HotToastService } from '@ngxpert/hot-toast';
 
 @Injectable({ providedIn: 'root' })
 export class Toaster {
-  toaster = inject(HotToastService);
+  private readonly toaster = inject(HotToastService, { optional: true });
 
   success(message: string): void {
-    this.toaster.success(message);
+    this.toaster?.success(message);
   }
 
   error(message: string): void {
-    this.toaster.error(message);
+    this.toaster?.error(message);
   }
 }

@@ -29,16 +29,16 @@ import { EcommerceStore } from '../../ecommerce-store';
 })
 export class HeaderActions {
   readonly store = inject(EcommerceStore);
-  readonly matDialog = inject(MatDialog);
+  readonly matDialog = inject(MatDialog, { optional: true });
 
   openSignInDialog() {
-    this.matDialog.open(SignInDialog, {
+    this.matDialog?.open(SignInDialog, {
       disableClose: true,
     });
   }
 
   openSignUpDialog() {
-    this.matDialog.open(SignUpDialog, {
+    this.matDialog?.open(SignUpDialog, {
       disableClose: true,
     });
   }

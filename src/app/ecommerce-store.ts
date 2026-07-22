@@ -56,7 +56,12 @@ export const EcommerceStore = signalStore(
     cartCount: computed(() => cartItems().reduce((acc, item) => acc + item.quantity, 0)),
   })),
   withMethods(
-    (store, toaster = inject(Toaster), matDialog = inject(MatDialog), router = inject(Router)) => ({
+    (
+      store,
+      toaster = inject(Toaster),
+      matDialog = inject(MatDialog, { optional: true }),
+      router = inject(Router, { optional: true }),
+    ) => ({
       setCategory: signalMethod<string>((category) => patchState(store, { category })),
       addToWishlist: (product: Product) => {
         const updatedwishlistItems = produce(store.wishlistItems(), (draft) => {
@@ -139,11 +144,11 @@ export const EcommerceStore = signalStore(
       },
       proceedToCheckout: () => {
         if (!store.user()) {
-          matDialog.open(SignInDialog, { disableClose: true, data: { checkout: true } });
+          matDialog?.open(SignInDialog, { disableClose: true, data: { checkout: true } });
           return;
         }
 
-        router.navigate(['/checkout']);
+        router?.navigate(['/checkout']);
       },
       placeOrder: async () => {
         patchState(store, { loading: true });
@@ -168,17 +173,17 @@ export const EcommerceStore = signalStore(
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
         patchState(store, { loading: false, cartItems: [] });
-        router.navigate(['order-success']);
+        router?.navigate(['order-success']);
       },
       signIn: ({ email, checkout, dialogId }: SignInParams) => {
         patchState(store, {
           user: { ...sampleUser, email },
         });
 
-        matDialog.getDialogById(dialogId)?.close();
+        matDialog?.getDialogById(dialogId)?.close();
 
         if (checkout) {
-          router.navigate(['/checkout']);
+          router?.navigate(['/checkout']);
         }
       },
       signUp: ({ email, checkout, name, dialogId }: SignUpParams) => {
@@ -186,10 +191,10 @@ export const EcommerceStore = signalStore(
           user: { ...sampleUser, email, name },
         });
 
-        matDialog.getDialogById(dialogId)?.close();
+        matDialog?.getDialogById(dialogId)?.close();
 
         if (checkout) {
-          router.navigate(['/checkout']);
+          router?.navigate(['/checkout']);
         }
       },
       signOut: () => patchState(store, { user: undefined }),
