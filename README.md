@@ -1,5 +1,7 @@
 # NgEcommerce
 
+[![CI](https://github.com/sirzes02/ng-ecommerce/actions/workflows/ci.yml/badge.svg)](https://github.com/sirzes02/ng-ecommerce/actions/workflows/ci.yml)
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.7.
 
 ## Development server

@@ -7,10 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:coverage": "ng test --watch=false --code-coverage",
     "lint": "eslint . --ext .ts,.html",
     "lint:fix": "eslint . --ext .ts,.html --fix",
     "e2e": "playwright test",
-    "e2e:install": "playwright install"
+    "e2e:install": "playwright install",
+    "prepare": "husky"
   },
   "private": true,
   "packageManager": "npm@12.0.1",
@@ -51,6 +53,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "globals": "^13.0.0",
+    "husky": "^9.1.6",
     "jsdom": "^28.0.0",
     "playwright": "^1.61.1",
     "postcss": "^8.5.3",
