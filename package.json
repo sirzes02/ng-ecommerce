@@ -54,7 +54,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "globals": "^13.0.0",
     "husky": "^9.1.6",
-    "jsdom": "^28.0.0",
+    "jsdom": "^29.1.1",
     "playwright": "^1.61.1",
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",
