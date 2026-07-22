@@ -1,7 +1,8 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
+
 import { ViewPanel } from '../../directives/view-panel';
 import { EcommerceStore } from '../../ecommerce-store';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-summarize-order',

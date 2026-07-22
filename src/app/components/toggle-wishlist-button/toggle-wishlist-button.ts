@@ -1,8 +1,9 @@
 import { Component, computed, inject, input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+
 import { EcommerceStore } from '../../ecommerce-store';
 import { Product } from '../../models/product';
-import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-toggle-wishlist-button',

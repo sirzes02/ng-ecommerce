@@ -1,9 +1,10 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
-import { Product } from '../../models/product';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+
 import { EcommerceStore } from '../../ecommerce-store';
-import { CurrencyPipe } from '@angular/common';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product-card',

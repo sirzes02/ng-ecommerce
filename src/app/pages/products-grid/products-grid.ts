@@ -1,11 +1,12 @@
+import { NgClass,TitleCasePipe } from '@angular/common';
 import { Component, inject, input, signal } from '@angular/core';
-import { ProductCard } from '../../components/product-card/product-card';
-import { MatSidenavContainer, MatSidenavContent, MatSidenav } from '@angular/material/sidenav';
 import { MatListItem, MatListItemTitle, MatNavList } from '@angular/material/list';
+import { MatSidenav,MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
-import { TitleCasePipe, NgClass } from '@angular/common';
-import { EcommerceStore } from '../../ecommerce-store';
+
+import { ProductCard } from '../../components/product-card/product-card';
 import { ToggleWishlistButton } from '../../components/toggle-wishlist-button/toggle-wishlist-button';
+import { EcommerceStore } from '../../ecommerce-store';
 
 @Component({
   selector: 'app-products-grid',

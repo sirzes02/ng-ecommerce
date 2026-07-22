@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogClose, MatDialogRef } from '@angul
 import { MatFormField, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
+
 import { EcommerceStore } from '../../ecommerce-store';
 import { SignUpParams } from '../../models/user';
 import { SignInDialog } from '../sign-in-dialog/sign-in-dialog';

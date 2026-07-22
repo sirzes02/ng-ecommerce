@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
 import { MatBadge } from '@angular/material/badge';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { EcommerceStore } from '../../ecommerce-store';
-import { MatDivider } from '@angular/material/divider';
-import { SignInDialog } from '../../components/sign-in-dialog/sign-in-dialog';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { RouterLink } from '@angular/router';
+
+import { SignInDialog } from '../../components/sign-in-dialog/sign-in-dialog';
 import { SignUpDialog } from '../../components/sign-up-dialog/sign-up-dialog';
+import { EcommerceStore } from '../../ecommerce-store';
 
 @Component({
   selector: 'app-header-actions',

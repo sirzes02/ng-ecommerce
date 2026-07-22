@@ -1,8 +1,9 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { routes } from './app.routes';
-import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
+
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [

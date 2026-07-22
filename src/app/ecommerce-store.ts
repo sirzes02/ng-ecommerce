@@ -1,5 +1,7 @@
 import { computed, inject } from '@angular/core';
-import { Product, sampleProducts } from './models/product';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { withStorageSync } from '@angular-architects/ngrx-toolkit';
 import {
   patchState,
   signalMethod,
@@ -9,14 +11,13 @@ import {
   withState,
 } from '@ngrx/signals';
 import { produce } from 'immer';
-import { Toaster } from './services/toaster';
-import { CartItem } from './models/cart';
-import { MatDialog } from '@angular/material/dialog';
+
 import { SignInDialog } from './components/sign-in-dialog/sign-in-dialog';
-import { sampleUser, SignInParams, SignUpParams, User } from './models/user';
-import { Router } from '@angular/router';
+import { CartItem } from './models/cart';
 import { Order } from './models/order';
-import { withStorageSync } from '@angular-architects/ngrx-toolkit';
+import { Product, sampleProducts } from './models/product';
+import { sampleUser, SignInParams, SignUpParams, User } from './models/user';
+import { Toaster } from './services/toaster';
 
 export type EcommerceState = {
   products: Product[];
@@ -108,13 +109,13 @@ export const EcommerceStore = signalStore(
         patchState(store, { cartItems: updatedCartItems });
       },
       addAllWishlistToCart: () => {
-        const updatedCartItems = produce(store.cartItems(), (draft) => {
+        const updatedCartItems = produce(store.cartItems(), (draft) =>
           store.wishlistItems().forEach((product) => {
             if (!draft.find((item) => item.product.id === product.id)) {
               draft.push({ product, quantity: 1 });
             }
-          });
-        });
+          }),
+        );
 
         patchState(store, { cartItems: updatedCartItems, wishlistItems: [] });
         toaster.success(`Products added to cart!`);
@@ -155,7 +156,7 @@ export const EcommerceStore = signalStore(
           return;
         }
 
-        const order: Order = {
+        const _order: Order = {
           id: crypto.randomUUID(),
           userId: user.id,
           total: Math.round(
@@ -182,7 +183,7 @@ export const EcommerceStore = signalStore(
       },
       signUp: ({ email, checkout, name, dialogId }: SignUpParams) => {
         patchState(store, {
-          user: { ...sampleUser, email },
+          user: { ...sampleUser, email, name },
         });
 
         matDialog.getDialogById(dialogId)?.close();

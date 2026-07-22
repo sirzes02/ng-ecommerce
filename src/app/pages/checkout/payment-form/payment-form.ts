@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ViewPanel } from '../../../directives/view-panel';
 import { MatIcon } from '@angular/material/icon';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+
+import { ViewPanel } from '../../../directives/view-panel';
 
 @Component({
   selector: 'app-payment-form',
