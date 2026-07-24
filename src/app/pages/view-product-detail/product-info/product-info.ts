@@ -4,6 +4,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 import { QtySelector } from '../../../components/qty-selector/qty-selector';
+import { StarRating } from '../../../components/star-rating/star-rating';
 import { ToggleWishlistButton } from '../../../components/toggle-wishlist-button/toggle-wishlist-button';
 import { EcommerceStore } from '../../../ecommerce-store';
 import { Product } from '../../../models/product';
@@ -20,6 +21,7 @@ import { StockStatus } from '../stock-status/stock-status';
     MatIcon,
     ToggleWishlistButton,
     MatIconButton,
+    StarRating,
   ],
   templateUrl: './product-info.html',
   styles: ``,

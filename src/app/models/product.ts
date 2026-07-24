@@ -1,3 +1,5 @@
+import { sampleUserReviews, UserReview } from './user-review';
+
 export type Product = {
   id: string;
   name: string;
@@ -8,6 +10,7 @@ export type Product = {
   reviewCount: number;
   inStock: boolean;
   category: string;
+  reviews: UserReview[];
 };
 
 export const sampleProducts: Product[] = [
@@ -21,6 +24,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 124,
     inStock: true,
     category: 'Electronics',
+    reviews: sampleUserReviews.filter((review) => review.productId === '1'),
   },
   {
     id: '2',
@@ -32,6 +36,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 68,
     inStock: true,
     category: 'Fashion',
+    reviews: sampleUserReviews.filter((review) => review.productId === '2'),
   },
   {
     id: '3',
@@ -43,6 +48,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 91,
     inStock: false,
     category: 'Home',
+    reviews: sampleUserReviews.filter((review) => review.productId === '3'),
   },
   {
     id: '4',
@@ -54,6 +60,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 73,
     inStock: true,
     category: 'Electronics',
+    reviews: sampleUserReviews.filter((review) => review.productId === '4'),
   },
   {
     id: '5',
@@ -65,6 +72,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 42,
     inStock: true,
     category: 'Home',
+    reviews: sampleUserReviews.filter((review) => review.productId === '5'),
   },
   {
     id: '6',
@@ -76,6 +84,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 55,
     inStock: true,
     category: 'Sports',
+    reviews: sampleUserReviews.filter((review) => review.productId === '6'),
   },
   {
     id: '7',
@@ -87,6 +96,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 37,
     inStock: true,
     category: 'Kitchen',
+    reviews: sampleUserReviews.filter((review) => review.productId === '7'),
   },
   {
     id: '8',
@@ -98,6 +108,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 88,
     inStock: true,
     category: 'Home',
+    reviews: sampleUserReviews.filter((review) => review.productId === '8'),
   },
   {
     id: '9',
@@ -109,6 +120,7 @@ export const sampleProducts: Product[] = [
     reviewCount: 47,
     inStock: true,
     category: 'Fashion',
+    reviews: sampleUserReviews.filter((review) => review.productId === '9'),
   },
   {
     id: '10',
@@ -120,5 +132,6 @@ export const sampleProducts: Product[] = [
     reviewCount: 112,
     inStock: true,
     category: 'Electronics',
+    reviews: sampleUserReviews.filter((review) => review.productId === '10'),
   },
 ];

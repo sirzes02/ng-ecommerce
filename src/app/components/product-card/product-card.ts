@@ -6,10 +6,11 @@ import { RouterLink } from '@angular/router';
 
 import { EcommerceStore } from '../../ecommerce-store';
 import { Product } from '../../models/product';
+import { StarRating } from '../star-rating/star-rating';
 
 @Component({
   selector: 'app-product-card',
-  imports: [MatButton, MatIcon, CurrencyPipe, RouterLink],
+  imports: [MatButton, MatIcon, CurrencyPipe, RouterLink, StarRating],
   templateUrl: './product-card.html',
   styles: ``,
 })

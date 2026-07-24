@@ -142,14 +142,9 @@ mat-icon.small {
   color: var(--mat-sys-error);
 }
 
-mat-form-field {
-  @include mat.theme(
-    (
-      density: -4,
-    )
-  );
-
-  width: 100%;
+/* Ensure filled form-field uses the theme surface color (fixes Safari/Tailwind overrides) */
+:root {
+  --mat-form-field-filled-container-color: var(--mat-sys-surface);
 }
 
 mat-sidenav {

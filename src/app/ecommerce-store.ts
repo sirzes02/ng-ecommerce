@@ -17,6 +17,7 @@ import { CartItem } from './models/cart';
 import { Order } from './models/order';
 import { Product, sampleProducts } from './models/product';
 import { sampleUser, SignInParams, SignUpParams, User } from './models/user';
+import { AddReviewParams, UserReview } from './models/user-review';
 import { Toaster } from './services/toaster';
 
 export type EcommerceState = {
@@ -27,6 +28,7 @@ export type EcommerceState = {
   user: User | undefined;
   loading: boolean;
   selectedProductId: string | undefined;
+  writeReview: boolean;
 };
 
 export const EcommerceStore = signalStore(
@@ -39,6 +41,7 @@ export const EcommerceStore = signalStore(
     user: undefined,
     loading: false,
     selectedProductId: undefined,
+    writeReview: false,
   }),
   withStorageSync({
     key: 'modern-store',
@@ -211,6 +214,46 @@ export const EcommerceStore = signalStore(
         }
       },
       signOut: () => patchState(store, { user: undefined }),
+      showWriteReview: () => patchState(store, { writeReview: true }),
+      hideWriteReview: () => patchState(store, { writeReview: false }),
+      addReview: async ({ title, comment, rating }: AddReviewParams) => {
+        patchState(store, { loading: true });
+
+        const product = store
+          .products()
+          .find((product) => product.id === store.selectedProductId());
+
+        if (!product) {
+          patchState(store, { loading: false });
+          return;
+        }
+
+        const review: UserReview = {
+          id: crypto.randomUUID(),
+          title,
+          comment,
+          rating,
+          productId: product.id,
+          userName: store.user()?.name || '',
+          userImageUrl: store.user()?.imageUrl || '',
+          reviewDate: new Date(),
+        };
+        const updatedProducts = produce(store.products(), (draft) => {
+          const index = draft.findIndex((p) => p.id === product.id);
+          draft[index].reviews.push(review);
+          draft[index].rating =
+            Math.round(
+              (draft[index].reviews.reduce((acc, r) => acc + r.rating, 0) /
+                draft[index].reviews.length) *
+                10,
+            ) / 10;
+          draft[index].reviewCount = draft[index].reviews.length;
+        });
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        patchState(store, { loading: false, products: updatedProducts, writeReview: false });
+      },
     }),
   ),
 );
