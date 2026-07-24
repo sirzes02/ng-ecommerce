@@ -1,7 +1,7 @@
-import { NgClass,TitleCasePipe } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { NgClass, TitleCasePipe } from '@angular/common';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { MatListItem, MatListItemTitle, MatNavList } from '@angular/material/list';
-import { MatSidenav,MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 
 import { ProductCard } from '../../components/product-card/product-card';
@@ -26,13 +26,13 @@ import { EcommerceStore } from '../../ecommerce-store';
   templateUrl: './products-grid.html',
   styles: ``,
 })
-export default class ProductsGrid {
+export default class ProductsGrid implements OnInit {
   readonly store = inject(EcommerceStore);
   readonly categories = signal<string[]>(['all', 'electronics', 'fashion', 'home']);
 
   category = input<string>('all');
 
-  constructor() {
+  ngOnInit() {
     this.store.setCategory(this.category);
   }
 }

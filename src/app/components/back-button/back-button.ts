@@ -7,7 +7,10 @@ import { RouterLink } from '@angular/router';
   selector: 'app-back-button',
   imports: [MatButton, RouterLink, MatIcon],
   templateUrl: './back-button.html',
-  styleUrls: ['./back-button.scss'],
+  styles: ``,
+  host: {
+    class: 'block',
+  },
 })
 export class BackButton {
   navigateTo = input<string>();
