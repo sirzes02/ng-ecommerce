@@ -19,6 +19,10 @@ export default class ViewProductDetail implements OnInit {
 
   backRoute = computed(() => `/products/${this.store.category()}`);
 
+  constructor() {
+    this.store.setProductSeoTags(this.store.selectedProduct);
+  }
+
   ngOnInit() {
     this.store.setProductId(this.productId(), { injector: this.injector });
   }

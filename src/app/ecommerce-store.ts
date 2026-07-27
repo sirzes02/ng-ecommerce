@@ -19,6 +19,7 @@ import { Product } from './models/product';
 import { sampleUser, SignInParams, SignUpParams, User } from './models/user';
 import { AddReviewParams, UserReview } from './models/user-review';
 import { ProductApi } from './services/product-api';
+import { SeoManager } from './services/seo-manager';
 import { Toaster } from './services/toaster';
 
 export type EcommerceState = {
@@ -82,11 +83,35 @@ export const EcommerceStore = signalStore(
       toaster = inject(Toaster),
       matDialog = inject(MatDialog, { optional: true }),
       router = inject(Router, { optional: true }),
+      seoManager = inject(SeoManager),
     ) => ({
       setCategory: signalMethod<string>((category) => patchState(store, { category })),
       setProductId: signalMethod<string>((productId) =>
         patchState(store, { selectedProductId: productId }),
       ),
+      setProductSeoTags: signalMethod<Product | undefined>((product) => {
+        if (!product) return;
+
+        seoManager.updateSeoTags({
+          title: product.name,
+          description: product.description,
+          image: product.imageUrl,
+          type: 'product',
+        });
+      }),
+      setProductListSeoTags: signalMethod<string | undefined>((category) => {
+        const categoryName = category
+          ? category.charAt(0).toUpperCase() + category.slice(1)
+          : 'All Products';
+        const description = category
+          ? `Browse our collection of ${category} products`
+          : 'Browse our collection of products';
+
+        seoManager.updateSeoTags({
+          title: categoryName,
+          description,
+        });
+      }),
       addToWishlist: (product: Product) => {
         const updatedwishlistItems = produce(store.wishlistItems(), (draft) => {
           if (!draft.find((item) => item.id === product.id)) {

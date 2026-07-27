@@ -38,6 +38,10 @@ export default class ProductsGrid implements OnInit {
 
   category = input<string>('all');
 
+  constructor() {
+    this.store.setProductListSeoTags(this.category);
+  }
+
   ngOnInit() {
     this.store.setCategory(this.category, { injector: this.injector });
   }
