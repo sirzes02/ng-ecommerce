@@ -1,7 +1,7 @@
 import { computed, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { withStorageSync } from '@angular-architects/ngrx-toolkit';
+import { withLocalStorage, withStorageSync } from '@angular-architects/ngrx-toolkit';
 import {
   patchState,
   signalMethod,
@@ -15,9 +15,10 @@ import { produce } from 'immer';
 import { SignInDialog } from './components/sign-in-dialog/sign-in-dialog';
 import { CartItem } from './models/cart';
 import { Order } from './models/order';
-import { Product, sampleProducts } from './models/product';
+import { Product } from './models/product';
 import { sampleUser, SignInParams, SignUpParams, User } from './models/user';
 import { AddReviewParams, UserReview } from './models/user-review';
+import { ProductApi } from './services/product-api';
 import { Toaster } from './services/toaster';
 
 export type EcommerceState = {
@@ -33,25 +34,32 @@ export type EcommerceState = {
 
 export const EcommerceStore = signalStore(
   { providedIn: 'root' },
-  withState<EcommerceState>({
-    products: sampleProducts,
-    category: 'all',
-    wishlistItems: [],
-    cartItems: [],
-    user: undefined,
-    loading: false,
-    selectedProductId: undefined,
-    writeReview: false,
+  withState<EcommerceState>(() => {
+    const productApi = inject(ProductApi);
+
+    return {
+      products: productApi.getProducts(),
+      category: 'all',
+      wishlistItems: [],
+      cartItems: [],
+      user: undefined,
+      loading: false,
+      selectedProductId: undefined,
+      writeReview: false,
+    };
   }),
-  withStorageSync({
-    key: 'modern-store',
-    select: ({ wishlistItems, cartItems, user, selectedProductId }) => ({
-      wishlistItems,
-      cartItems,
-      user,
-      selectedProductId,
-    }),
-  }),
+  withStorageSync(
+    {
+      key: 'modern-store',
+      select: ({ wishlistItems, cartItems, user, selectedProductId }) => ({
+        wishlistItems,
+        cartItems,
+        user,
+        selectedProductId,
+      }),
+    },
+    withLocalStorage(),
+  ),
   withComputed(({ category, products, wishlistItems, cartItems, selectedProductId }) => ({
     filteredProducts: computed(() => {
       if (category() === 'all') {

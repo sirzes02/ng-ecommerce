@@ -1,5 +1,7 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, inject, Injector, input, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MatListItem, MatListItemTitle, MatNavList } from '@angular/material/list';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
@@ -7,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { ProductCard } from '../../components/product-card/product-card';
 import { ToggleWishlistButton } from '../../components/toggle-wishlist-button/toggle-wishlist-button';
 import { EcommerceStore } from '../../ecommerce-store';
+import { CategoryApi } from '../../services/category-api';
 
 @Component({
   selector: 'app-products-grid',
@@ -18,6 +21,8 @@ import { EcommerceStore } from '../../ecommerce-store';
     MatNavList,
     MatListItem,
     MatListItemTitle,
+    MatButton,
+    MatIcon,
     RouterLink,
     TitleCasePipe,
     NgClass,
@@ -27,12 +32,13 @@ import { EcommerceStore } from '../../ecommerce-store';
   styles: ``,
 })
 export default class ProductsGrid implements OnInit {
+  readonly injector = inject(Injector);
   readonly store = inject(EcommerceStore);
-  readonly categories = signal<string[]>(['all', 'electronics', 'fashion', 'home']);
+  readonly categories = inject(CategoryApi).getCategories();
 
   category = input<string>('all');
 
   ngOnInit() {
-    this.store.setCategory(this.category);
+    this.store.setCategory(this.category, { injector: this.injector });
   }
 }

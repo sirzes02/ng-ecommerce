@@ -3,7 +3,7 @@
     <div class="p-6">
       <h2 class="text-lg text-gray-900">Categories</h2>
       <mat-nav-list>
-        @for (cat of categories(); track cat) {
+        @for (cat of categories; track cat) {
           <mat-list-item
             [activated]="cat === category()"
             class="my-2"
@@ -23,17 +23,34 @@
   <mat-sidenav-content class="bg-gray-100 p-6 h-full">
     <h1 class="text-2xl font-bold text-gray-900 mb-6">{{ category() | titlecase }}</h1>
     <p class="text-base text-gray-600 mb-6">{{ store.filteredProducts().length }} products found</p>
-    <div class="responsive-grid">
-      @for (product of store.filteredProducts(); track product.id) {
-        <app-product-card [product]="product">
-          <app-toggle-wishlist-button
-            class="!absolute z-10 top-3 right-3 !bg-white shadow-md rounded-md transition-all duration-200 hover:scale-110 hover:shadow-lg"
-            [product]="product"
-            [style.view-transition-name]="'wishlist-button-' + product.id"
-          />
-        </app-product-card>
-      }
-    </div>
+    @if (store.filteredProducts().length > 0) {
+      <div class="responsive-grid">
+        @for (product of store.filteredProducts(); track product.id) {
+          <app-product-card [product]="product">
+            <app-toggle-wishlist-button
+              class="!absolute z-10 top-3 right-3 !bg-white shadow-md rounded-md transition-all duration-200 hover:scale-110 hover:shadow-lg"
+              [product]="product"
+              [style.view-transition-name]="'wishlist-button-' + product.id"
+            />
+          </app-product-card>
+        }
+      </div>
+    } @else {
+      <div class="flex flex-col items-center justify-center py-16 text-center">
+        <div class="w-20 h-20 mb-8 rounded-full bg-gray-200 flex items-center justify-center">
+          <mat-icon class="text-gray-400 transform scale-150">search_off</mat-icon>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">No products found</h2>
+        <p class="text-gray-600 mb-6">
+          We couldn't find any products in the {{ category() | titlecase }} category.
+        </p>
+
+        <button matButton="filled" routerLink="/products/all" class="min-w-[200px] py-3">
+          View All Products
+        </button>
+      </div>
+    }
   </mat-sidenav-content>
 </mat-sidenav-container>
 
