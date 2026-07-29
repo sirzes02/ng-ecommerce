@@ -44,7 +44,7 @@
     "@angular-eslint/eslint-plugin-template": "^19.0.0",
     "@angular-eslint/template-parser": "^19.0.0",
     "@angular/build": "^21.2.18",
-    "@angular/cli": "^21.2.18",
+    "@angular/cli": "^22.0.9",
     "@angular/compiler-cli": "^21.2.18",
     "@eslint/js": "^8.57.0",
     "@playwright/test": "^1.61.1",
